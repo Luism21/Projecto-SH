@@ -1,9 +1,9 @@
-var map;
-var markersArray = [];
 
+var polylines = [];
+var markersArray = [];
+var map;
 function init(position)
 {
-
 map = new GMaps({
 div: '#map',
 lat: -12.043333,
@@ -104,6 +104,7 @@ map.addControl({
     }
   }
 });
+
 }
 
 window.onload = init;
@@ -117,10 +118,11 @@ var originLng = markersArray[0].getPosition().lng();
 
 var destLat = markersArray[1].getPosition().lat();
 var destLng = markersArray[1].getPosition().lng();
+var i = 0;
 
 map.drawRoute({
-  origin:[originLat, originLng],
-  destination:[destLat, destLng],
+  origin: [originLat, originLng],
+  destination:[destLat,destLng], 
   travelMode: 'driving',
   strokeColor: '#131540',
   strokeOpacity: 0.6,
@@ -128,13 +130,13 @@ map.drawRoute({
 });
 
 map.travelRoute({
-  origin:[38.726367,-9.149737], 
-  destination:[38.712572,-9.138322], 
+  origin:[originLat, originLng],
+  destination:[destLat, destLng],
   travelMode: 'driving',
   step: function(e) {
     $('#instructions').append('<li>'+e.instructions+'</li>');
     $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number).fadeIn(200, function() {
-      map.drawPolyline({
+      polylines[i] = map.drawPolyline({
         path: e.path,
         strokeColor: '#131540',
         strokeOpacity: 0.6,
@@ -143,13 +145,13 @@ map.travelRoute({
     });
   }
 });
-    
+   i++; 
 }
 
-function showMarkers(){
+/*function showMarkers(){
 var lang = markersArray[0].getPosition().lat();
 	alert(lang);
-}
+}*/
 
 function geolocate() {
 
@@ -176,9 +178,11 @@ GMaps.geolocate({
 function clearOverlays() {
   for (var i = 0; i < markersArray.length; i++ ) {
     markersArray[i].setMap(null);
-  }
-    this.markersArray = new Array();
+  };
+
+    this.markersArray = []; 
   
+
 }
 
 function showFireDepartment(){

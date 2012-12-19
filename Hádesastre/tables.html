@@ -35,13 +35,14 @@
 				}
 			}
 		</script>
-        <!--
-        <script type="text/javascript" charset="utf-8">
-			window.onload = function () {
-				checksize();
-			}
-		</script>
-        -->
+<script>
+function clearBox(elementID)
+{
+    document.getElementById(elementID).innerHTML = "";
+}
+
+    </script>
+		
 	</head>
 
 	<body> 
@@ -88,7 +89,8 @@
 						</td>
 					</tr>
 		<tr>
-			<td id="instructions" width="250px" style="padding-top: 10px; display: none"> 
+			<td id="instructions" width="250px" style="padding-top: 10px; ">
+			
                         </td>
 		</tr>
 
@@ -105,7 +107,7 @@
 				<input type="submit" onclick="clearOverlays();return false;" value="Limpar Marcadores">
 				<input type="submit" onclick="showFireDepartment();return false;" value="Mostrar Bombeiros">
 				<input type="submit" onclick="showHospital();return false;" value="Mostrar Hospitais">
-				
+				<input type="submit" onclick="clearBox('instructions')" value="Limpar instruções" >	
 			</div>
 		</div>
 		
